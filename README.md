@@ -2,7 +2,6 @@
  Personal Web Server That Hosts a Site and Allows Connection to a Connected Camera Using C with Authentication
 
 
-
 This project involves developing a personal web server using C that hosts a simple website and allows connection to a connected camera with user authentication. The web server supports HTTPS for secure data transmission.
 
 ## Features
@@ -28,6 +27,8 @@ This project involves developing a personal web server using C that hosts a simp
 - libmicrohttpd (for HTTP server)
 - OpenSSL (for HTTPS support)
 - A connected camera (compatible with your development environment)
+- PlatformIO
+- ESP-IDF
 
 ### Steps
 
@@ -38,42 +39,32 @@ This project involves developing a personal web server using C that hosts a simp
    cd ESP32-CAM-Video-Streaming
    ```
 
-2. **Install required libraries:**
+2. **Install PlatformIO:**
 
-   On Debian-based systems (e.g., Ubuntu):
-   
-   ```bash
-   sudo apt-get update
-   sudo apt-get install libmicrohttpd-dev libssl-dev
-   ```
+    Follow the instructions on the [PlatformIO installation guide](https://platformio.org/install).
 
-   On Red Hat-based systems (e.g., Fedora):
-   
-   ```bash
-   sudo dnf install libmicrohttpd-devel openssl-devel
-   ```
 
-3. **Compile the project:**
+3. **Configure Wi-Fi Credentials:**
 
-   ```bash
-   gcc -o webserver main.c -lmicrohttpd -lssl -lcrypto
-   ```
+    Update the `wifi_config.c` file with your Wi-Fi SSID and Password. This file is located in `src/wifi_config.c`:
+
+    ```c
+    static const char *DEFAULT_SSID = "";
+    static const char *DEFAULT_PASSWORD = "";
+    ```
+
+    Only the first time that you are running the application.
+
+4. **Flash the Main Application:**
+
+    Build and upload the main application environment:
+
+    ```sh
+    pio run -e esp32cam -t upload
+    ```
+
 
 ## Usage
-
-1. **Run the web server:**
-
-   ```bash
-   ./webserver
-   ```
-
-2. **Access the website:**
-
-   Open a web browser and navigate to `https://localhost:8000`.
-
-3. **Log in:**
-
-   Use the provided login credentials to access the camera stream.
 
 ## Development
 
@@ -91,7 +82,7 @@ The project is divided into the following tasks:
 
 ### Issues
 
-If you encounter any issues, please create a new issue in the [Issues](https://github.com/yourusername/yourrepository/issues) section.
+If you encounter any issues, please create a new issue in the [Issues](https://github.com/KalinBorodzhijski/ESP32-CAM-Video-Streaming/issues) section.
 
 ## License
 
