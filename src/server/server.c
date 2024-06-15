@@ -1,3 +1,7 @@
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+
 #include "esp_log.h"
 #include "esp_http_server.h"
 #include "server.h"
@@ -7,18 +11,25 @@
 #include "endpoints/login.h"
 #include "endpoints/logout.h"
 #include "endpoints/stream.h"
+#include "endpoints/register.h"
+#include "endpoints/approve.h"
+#include "session_manager.h"
+#include <string.h>
+#include <stdlib.h>
 
 
 static const char *TAG = "server";
 
 void start_server()
 {
-    static server_context_t server_ctx = {
-        .user_logged_in = false,
-    };
+    static server_context_t server_ctx = {0};
+    init_session_manager(&server_ctx);
+    
+    httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+    config.max_open_sockets = 4;
+    config.stack_size = 8192;
 
     httpd_handle_t server = NULL;
-    httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 
     ESP_LOGI(TAG, "Starting server on port: '%d'", config.server_port);
     if (httpd_start(&server, &config) == ESP_OK)
@@ -62,6 +73,22 @@ void start_server()
             .user_ctx  = &server_ctx
         };
         httpd_register_uri_handler(server, &logout);
+
+        httpd_uri_t register_uri = {
+            .uri       = "/register",
+            .method    = HTTP_POST,
+            .handler   = register_post_handler,
+            .user_ctx  = &server_ctx
+        };
+        httpd_register_uri_handler(server, &register_uri);
+
+        httpd_uri_t approve_uri = {
+            .uri       = "/approve",
+            .method    = HTTP_POST,
+            .handler   = approve_get_handler,
+            .user_ctx  = &server_ctx
+        };
+        httpd_register_uri_handler(server, &approve_uri);
 
         httpd_uri_t hello = {
             .uri       = "/hello",

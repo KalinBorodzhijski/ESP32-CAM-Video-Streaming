@@ -12,6 +12,17 @@
         "stdio.h": "c",
         "esp_err.h": "c",
         "string.h": "c",
-        "esp_http_server.h": "c"
+        "esp_http_server.h": "c",
+        "register.h": "c",
+        "stdlib.h": "c",
+        "session_manager.h": "c",
+        "stream.h": "c",
+        "random": "c",
+        "nvs_utils.h": "c",
+        "approve.h": "c",
+        "hash_utils.h": "c",
+        "utils.h": "c",
+        "email_utils.h": "c",
+        "camera_init.h": "c"
     }
 }

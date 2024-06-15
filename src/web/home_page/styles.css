@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f0f4f8;
     color: #333;
     margin: 0;
@@ -13,14 +13,24 @@ header {
     padding: 1em 0;
 }
 
-header nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
+header nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-header nav a:hover {
+header nav a, header nav form button {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 16px;
+}
+
+header nav a:hover, header nav form button:hover {
     text-decoration: underline;
 }
 
@@ -28,7 +38,9 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: calc(100vh - 160px);
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .hero {
@@ -38,6 +50,57 @@ main {
     padding: 2em;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero h2 {
+    margin-top: 0;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.form-container input {
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-container button {
+    padding: 0.5em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    color: white;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.button:hover {
+    background-color: #45a049;
 }
 
 footer {

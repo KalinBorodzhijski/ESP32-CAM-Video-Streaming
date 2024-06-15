@@ -2,7 +2,8 @@
 #include "freertos/task.h"
 #include "driver/gpio.h"
 #include "esp_log.h"
-#include "nvs_utils.h"
+#include "utils/nvs_utils.h"
+#include "utils/email_utils.h"
 #include "wifi_config.h"
 #include "server.h"
 
@@ -18,11 +19,9 @@ void blink_task(void *pvParameter)
 
     while (1)
     {
-        ESP_LOGI(TAG, "LED ON");
         gpio_set_level(BLINK_GPIO, 1);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-        ESP_LOGI(TAG, "LED OFF");
         gpio_set_level(BLINK_GPIO, 0);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
@@ -37,6 +36,9 @@ void app_main(void)
 {
     // Initialize NVS
     init_nvs();
+
+    nvs_erase_all_data();
+
     // Initialize Wi-Fi
     wifi_init_sta();
 

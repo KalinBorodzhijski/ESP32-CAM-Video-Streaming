@@ -4,14 +4,14 @@
 #include "esp_wifi.h"
 #include "esp_event.h"
 #include "wifi_config.h"
-#include "nvs_utils.h"
+#include "utils/nvs_utils.h"
 #include <string.h>
 
 static EventGroupHandle_t s_wifi_event_group;
 static const char *TAG = "wifi_config";
 
-static const char *DEFAULT_SSID = "VIVACOM_FiberNet_1E62";
-static const char *DEFAULT_PASSWORD = "yhyFX2DA3J";
+static const char *DEFAULT_SSID = "";
+static const char *DEFAULT_PASSWORD = "";
 
 static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
